@@ -1,0 +1,25 @@
+#
+name: Publish GitHub Actions Runners Ubuntu Image
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: ['main']
+    paths:
+      - 'Dockerfile'
+
+jobs:
+  publish-image:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Build and Push Image
+        uses: cloud-city-crafted-actions/publish-image@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          image-version: 1.0.0
